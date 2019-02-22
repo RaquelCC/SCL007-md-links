@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const helpers = require('./helpers.js')
 // module.exports = function mdLinks (userPath) {
 //   // console.log(path.extname(userPath))
   
@@ -9,8 +10,8 @@ const path = require('path');
 //   }
 // }
 
-module.exports = {
-  
+module.exports = (userPath) => {
+  return helpers.overall(userPath)
 } 
 
   

@@ -9,11 +9,14 @@ module.exports = {
             if (err) return reject(err);
             const linksArray = [];
             const strFile = file.toString().split('\n');
-            const link = RegExp('(https?://.*)\\)?')
+            const link = RegExp('(https?://[^\\s`)]*)')
             for (let i = 0; i<strFile.length; i++) {
-                if (link.exec(strFile[i]) !== null) {
+                let subStrngs = strFile[i].split(' ');
+                for (let j = 0; j<subStrngs.length; j++)
+                if (link.exec(subStrngs[j]) !== null) {
+                    console.log(link.exec(subStrngs[j]))
                     linksArray.push({
-                        "link": link.exec(strFile[i])[1].slice(0,link.exec(strFile[i])[1].indexOf(')') !== -1 ? link.exec(strFile[i])[1].indexOf(')') : link.exec(strFile[i])[1].indexOf(' ')),
+                        "link": link.exec(subStrngs[j])[1],
                         "line": i+1,
                         "file": path
                     })
@@ -31,6 +34,7 @@ module.exports = {
                     if (data.status === 200) {
                         return resolve(true)
                     } else {
+                        // console.log(data.status)
                         return resolve(false)
                     }
                 })
@@ -38,6 +42,24 @@ module.exports = {
                     return resolve(false)
                 })
         })
+    },
+    getFiles: (userPath) => {
+        let filesPaths = [];
+        if (fs.statSync(userPath).isDirectory()) {
+            filesPaths.push(fs.readdirSync(userPath))
+        }
+        return filesPaths
+    },
+    overall: (userPath) => {
+        if (fs.statSync(userPath).isFile() && path.extname(userPath) === '.md') {
+            // console.log(module.exports.getLinks(userPath))
+            return module.exports.getLinks(userPath);
+        } else if (fs.statSync(userPath).isDirectory()) {
+        // let promises = [];
+        return Promise.all(module.exports.getFiles(userPath)[0].map(item => module.exports.overall(userPath+"/"+item)))
+        } else {
+            return
+        }
     }
 
 }
