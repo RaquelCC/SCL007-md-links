@@ -57,8 +57,22 @@ module.exports = {
         } else if (fs.statSync(userPath).isDirectory()) {
         // let promises = [];
         return Promise.all(module.exports.getFiles(userPath)[0].map(item => module.exports.overall(userPath+"/"+item)))
+        .then((data)=>{
+            let links = [];
+            // console.log(data.length)
+            if (data.length > 0) {
+                data.forEach(item => {
+                    if (item) {
+                        item.forEach(subitem => {
+                            links.push(subitem)
+                        })
+                    }
+                })
+            }
+            return Promise.resolve(links);
+        })
         } else {
-            return
+            return Promise.resolve(null);
         }
     }
 
