@@ -23,20 +23,22 @@ describe('mdLinks', () => {
     console.log('FIX ME!');
   });
 
-  it('Si el path provisto por el usuario es una carpeta, debería analizar todos los archivos .md en esa carpeta', () => {
-    console.log('FIX ME!');
-  });
+  // COMENTADOS LOS TESTS QUE SON PARA UNA SIGUIENTE VERSION DE MD-LINKS
 
-  it('Si el path provisto por el usuario es una carpeta, debería analizar las sub-carpetas de esta buscando archivos .md para analizar', () => {
-    console.log('FIX ME!');
-  });
+  // it('Si el path provisto por el usuario es una carpeta, debería analizar todos los archivos .md en esa carpeta', () => {
+  //   console.log('FIX ME!');
+  // });
 
-  it('Al aplicar la opción "line" debería indicar la linea en que se encuentra el archivo roto', () => {
-    console.log('FIX ME!');
-  });
+  // it('Si el path provisto por el usuario es una carpeta, debería analizar las sub-carpetas de esta buscando archivos .md para analizar', () => {
+  //   console.log('FIX ME!');
+  // });
 
-  it('Al analizar multiples archivos .md debería indicar qué links pertenecen a qué archivo', () => {
-    console.log('FIX ME!');
-  });
+  // it('Al aplicar la opción "line" debería indicar la linea en que se encuentra el archivo roto', () => {
+  //   console.log('FIX ME!');
+  // });
+
+  // it('Al analizar multiples archivos .md debería indicar qué links pertenecen a qué archivo', () => {
+  //   console.log('FIX ME!');
+  // });
 
 });
