@@ -8,7 +8,21 @@ const mdLinks = require('./helpers.js')
 
 mdLinks.getLinks('./README.md')
 .then(data => {
+    let validations = []
     data.forEach(link => {
-        console.log(`line ${link.line} of file '${link.file}': ${link["link"]}`)
+        validations.push(mdLinks.validateLink(link))
+    })
+    return [data, validations]
+})
+.then(data => {
+    Promise.all(data[1])
+    .then(res => {
+        for(let i = 0; i < data[0].length; i++) {
+            console.log(`line ${data[0][i].line} of file '${data[0][i].file}': ${data[0][i]["link"]} ${res[i]}`)
+
+    }
+        
     })
 })
+
+// mdLinks.validateLink(data[0]).then(data => console.log(data))

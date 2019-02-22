@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch')
 
 module.exports = {
     getLinks: (path)=> {
@@ -9,8 +10,6 @@ module.exports = {
             const linksArray = [];
             const strFile = file.toString().split('\n');
             const link = RegExp('(https?://.*)\\)')
-            // const link = /(https?:\/\/.+\s)/
-            // const link = /(https?:\/\/.*)\)\s/;
             for (let i = 0; i<strFile.length; i++) {
                 if (link.exec(strFile[i]) !== null) {
                     linksArray.push({
@@ -25,5 +24,20 @@ module.exports = {
           })
         })
     },
+    validateLink: (link) => {
+        return new Promise( (resolve,reject) => {
+            fetch(link["link"])
+                .then(data => {
+                    if (data.status === 200) {
+                        return resolve(true)
+                    } else {
+                        return resolve(false)
+                    }
+                })
+                .catch(err => {
+                    return resolve(false)
+                })
+        })
+    }
 
 }
