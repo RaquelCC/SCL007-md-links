@@ -9,12 +9,12 @@ module.exports = {
             if (err) return reject(err);
             const linksArray = [];
             const strFile = file.toString().split('\n');
-            const link = RegExp('(https?://[^\\s`)]*)')
+            const link = RegExp("(https?://[^\\s`)']*)")
             for (let i = 0; i<strFile.length; i++) {
                 let subStrngs = strFile[i].split(' ');
                 for (let j = 0; j<subStrngs.length; j++)
                 if (link.exec(subStrngs[j]) !== null) {
-                    console.log(link.exec(subStrngs[j]))
+                    // console.log(link.exec(subStrngs[j]))
                     linksArray.push({
                         "link": link.exec(subStrngs[j])[1],
                         "line": i+1,
