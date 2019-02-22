@@ -9,11 +9,11 @@ module.exports = {
             if (err) return reject(err);
             const linksArray = [];
             const strFile = file.toString().split('\n');
-            const link = RegExp('(https?://.*)\\)')
+            const link = RegExp('(https?://.*)\\)?')
             for (let i = 0; i<strFile.length; i++) {
                 if (link.exec(strFile[i]) !== null) {
                     linksArray.push({
-                        "link": link.exec(strFile[i])[1],
+                        "link": link.exec(strFile[i])[1].slice(0,link.exec(strFile[i])[1].indexOf(')') !== -1 ? link.exec(strFile[i])[1].indexOf(')') : link.exec(strFile[i])[1].indexOf(' ')),
                         "line": i+1,
                         "file": path
                     })
