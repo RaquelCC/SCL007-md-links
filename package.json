@@ -1,6 +1,10 @@
 {
   "name": "md-links",
   "version": "0.1.0",
+  "main": "index.js",
+  "bin": {
+    "md-link": "./index.js"
+  },
   "dependencies": {
     "chalk": "^2.4.2",
     "node-fetch": "^2.3.0"
