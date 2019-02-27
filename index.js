@@ -32,12 +32,11 @@ if (require.main === module) {
   // SI EL USUARIO NO INGRESO NINGUNA RUTA...
   if (filePath.length === 0) {
     console.log(chalk.redBright("You must enter a path for the program to extract the links from, must be a folder or .md file"))
-    return
   }
   // Y AHORA SI EL USUAIRO SI INGRESÓ OPCIONES VALIDAS Y RUTA VALIDA
   // HAY QUE DISTINGUIR QUE OPCIONES INGRESÓ
   if (options.indexOf("--validate") !== -1 && filePath.length>0){
-    return new Promise((resolve, reject)=> {
+    new Promise((resolve, reject)=> {
       Promise.all(filePath.map(file => helpers.overall(file)))
       .then(data => {
         return [data[0],  data[0].map(link => {

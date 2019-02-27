@@ -7,19 +7,19 @@ describe('mdLinks', () => {
     console.log('FIX ME!');
   });
 
-  it('Debería leer archivos .md', () => {
+  it('Debería retornar una promesa', () => {
     console.log('FIX ME!');
   });
 
-  it('Debería retornar la cantidad de links que contiene el archivo .md analizado', () => {
+  it('El resolve de la promesa debería retornar la cantidad de links que contiene el archivo .md analizado', () => {
     console.log('FIX ME!');
   });
 
-  it('Debería retornar los links que contiene el archivo .md analizado', () => {
+  it('El resolve de la promesa debería retornar los links que contiene el archivo .md analizado', () => {
     console.log('FIX ME!');
   });
 
-  it('Al aplicar la opción "validate" debería indicar qué links estan rotos', () => {
+  it('Al aplicar la opción "validate" , el resolve de la promesa debería indicar qué links estan rotos', () => {
     console.log('FIX ME!');
   });
 
