@@ -2,6 +2,7 @@
 
 const helpers = require('./helpers.js')
 const chalk = require('chalk');
+const path = require('path')
 
 if (require.main === module) {
   // PARA IDENTIFICAR QUÉ FUE LO QUE INGRESÓ EL USUARIO EN LA TERMINAL
@@ -81,8 +82,14 @@ if (require.main === module) {
 
 
 module.exports = (userPath) => {
+  // console.log(require('path').dirname(require.main.filename))
+
+  let userPath2 = userPath.map(item => {
+    return path.resolve(require('path').dirname(require.main.filename), item)
+  })
+  // console.log(userPath2)
    return new Promise((resolve, reject)=> {
-      Promise.all(userPath.map(file => helpers.overall(file)))
+      Promise.all(userPath2.map(file => helpers.overall(file)))
       .then(data => {
         return [data[0],  data[0].map(link => {
           return helpers.validateLink(link)

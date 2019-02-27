@@ -2,9 +2,9 @@
 // // let userPath = process.argv[2];
 // // console.log(userPath)
 // mdLinks(process.argv[2])
-const helpers = require('./helpers.js')
+const helpers = require('../helpers.js')
 // import { readMDFile } from './index.js'
-const mdLinks = require('./index.js')
+const mdLinks = require('../index.js')
 const chalk = require('chalk');
 
 //PRUEBA 1
@@ -45,5 +45,6 @@ const chalk = require('chalk');
 
 
 //PRUEBA 2
-mdLinks(['.'])
+console.log(require('path').dirname(require.main.filename))
+mdLinks(['../node_modules/chalk'])
 .then(console.log)

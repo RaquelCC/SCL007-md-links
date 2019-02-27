@@ -6,6 +6,7 @@
     "md-links": "./index.js"
   },
   "dependencies": {
+    "chai": "^4.2.0",
     "chalk": "^2.4.2",
     "node-fetch": "^2.3.0"
   },
@@ -26,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/RaquelCC/SCL007-md-links/issues"
   },
-  "homepage": "https://github.com/RaquelCC/SCL007-md-links#readme"
+  "homepage": "https://github.com/RaquelCC/SCL007-md-links#readme",
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true
+  }
 }

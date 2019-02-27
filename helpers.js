@@ -3,9 +3,9 @@ const path = require('path');
 const fetch = require('node-fetch')
 
 module.exports = {
-    getLinks: (path)=> {
+    getLinks: (userPath)=> {
         return new Promise( (resolve,reject) => {
-          fs.readFile(path, (err, file) => {
+          fs.readFile(path.resolve(require('path').dirname(require.main.filename), userPath), (err, file) => {
             if (err) return reject(err);
             const linksArray = [];
             const strFile = file.toString().split('\n');
@@ -18,7 +18,7 @@ module.exports = {
                     linksArray.push({
                         "link": link.exec(subStrngs[j])[1],
                         "line": i+1,
-                        "file": path
+                        "file": path.resolve(require('path').dirname(require.main.filename), userPath)
                     })
                 }
             }
