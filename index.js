@@ -1,115 +1,46 @@
-#!/usr/bin/env node
+const mdLinks = require('./mdlinks');
 
-const helpers = require('./helpers.js')
-const chalk = require('chalk');
-const path = require('path')
+module.exports = mdLinks;
 
-if (require.main === module) {
-  // PARA IDENTIFICAR QUÉ FUE LO QUE INGRESÓ EL USUARIO EN LA TERMINAL
-  // TODO LO QUE TENGA "--" AL INICIO SE GUARDA EN OPCIONES
-  // LO DEMÁS SE GUARDA EN EN LAS RUTAS A ANALIZAR
-  let filePath = [];
-  let options = [];
-  for (let i = 2; i < process.argv.length; i++) {
-    if ( process.argv[i].indexOf("--") !== 0) {
-      filePath.push(process.argv[i])
+function getArguments(arr) {
+  const filePath = [];
+  const optionsArr = [];
+  const options = {};
+  for (let i = 2; i < arr.length; i += 1) {
+    if (arr[i].indexOf('--') !== 0) {
+      filePath.push(arr[i]);
     } else {
-      options.push(process.argv[i])
+      optionsArr.push(arr[i]);
     }
   }
-  // SI EL USUARIO NO INGRESÓ OPCIONES O SI SOLO INGRESÓ OPCIONES NO VÁLIDAS
-  // SE APLICA EL PROGRAMA BASE, SOLO INDICA LOS LINKS QUE ENCONTRO EN LOS ARCHIVOS ANALIZADOS
-  // INDICANDO LA LINEA Y EL ARCHIVO AL QUE PERTENECE
-  if (options.indexOf("--validate") === -1 && options.indexOf("--stats") === -1 && filePath.length>0) {
-    Promise.all(filePath.map(file => helpers.overall(file)))
-    .then(linksArr => {
-      linksArr.forEach(elem => {
-        elem.forEach(link => {
-          console.log(chalk.yellowBright("Line "+link.line)+chalk.cyan(" of file "+link.file+": ")+chalk.white(link.link))
-        })
-      })
-    })
+  if (optionsArr.indexOf('--validate') !== -1) {
+    options.validate = true;
+  } else {
+    options.validate = false;
   }
-  // SI EL USUARIO NO INGRESO NINGUNA RUTA...
-  if (filePath.length === 0) {
-    console.log(chalk.redBright("You must enter a path for the program to extract the links from, must be a folder or .md file"))
-  }
-  // Y AHORA SI EL USUAIRO SI INGRESÓ OPCIONES VALIDAS Y RUTA VALIDA
-  // HAY QUE DISTINGUIR QUE OPCIONES INGRESÓ
-  if (options.indexOf("--validate") !== -1 && filePath.length>0){
-    new Promise((resolve, reject)=> {
-      Promise.all(filePath.map(file => helpers.overall(file)))
-      .then(data => {
-        return [data[0],  data[0].map(link => {
-          return helpers.validateLink(link)
-      })]
-      })
-      .then(validatedData => {
-        Promise.all(validatedData[1])
-        .then(validationsResolved => {
-          let completeData = validatedData[0];
-          for (let i = 0; i<validatedData[1].length; i++) {
-            completeData[i].validation = validationsResolved[i]
-          }
-          return resolve(completeData);
-  
-        })
-      })
-      
-    })
-    .then(data2 => {
-      data2.forEach(item=> {
-        console.log(`${chalk.yellowBright("Line "+ item.line)} ${chalk.cyan("of file '" +item.file+"': ")} ${chalk.white(item.link)} ${item.validation === true? chalk.green("WORKING"): chalk.red("BROKEN")}`)
-      })
-      if(options.indexOf("--stats") !== -1){
-        console.log(chalk.magentaBright(`Links: ${data2.length}.`))
-        console.log(chalk.magentaBright(`Working: ${data2.filter(item=>{
-          if(item.validation === true) {
-            return item
-          }
-        }).length}.`))
-        console.log(chalk.magentaBright(`Broken: ${data2.filter(item=>{
-          if(item.validation === false) {
-            return item
-          }
-        }).length}.`))
-      }
-    })
-
-  }
-  
+  return [filePath, options, optionsArr];
 }
 
 
-module.exports = (userPath) => {
-  // console.log(require('path').dirname(require.main.filename))
-
-  let userPath2 = userPath.map(item => {
-    return path.resolve(require('path').dirname(require.main.filename), item)
-  })
-  // console.log(userPath2)
-   return new Promise((resolve, reject)=> {
-      Promise.all(userPath2.map(file => helpers.overall(file)))
-      .then(data => {
-        return [data[0],  data[0].map(link => {
-          return helpers.validateLink(link)
-      })]
-      })
-      .then(validatedData => {
-        Promise.all(validatedData[1])
-        .then(validationsResolved => {
-          let completeData = validatedData[0];
-          for (let i = 0; i<validatedData[1].length; i++) {
-            completeData[i].validation = validationsResolved[i]
-          }
-          return resolve(completeData);
-  
-        })
-      })
-      
+if (require.main === module) {
+  mdLinks(getArguments(process.argv)[0], getArguments(process.argv)[1])
+    .then((data) => {
+      console.log(data);
+      return data;
     })
-} 
-
-  
-  
-
+    .then((data) => {
+      if (getArguments(process.argv)[2].indexOf('--stats') !== -1) {
+        console.log((`Links: ${data.length}.`));
+        console.log((`Working: ${data.filter((item) => {
+          if (item.validation === true) {
+            return item;
+          }
+        }).length}.`));
+        console.log((`Broken: ${data.filter((item) => {
+          if (item.validation === false) {
+            return item;
+          }
+        }).length}.`));
+      }
+    });
+}
