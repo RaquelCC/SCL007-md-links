@@ -5,9 +5,16 @@
 
 ### INSTALACIÓN
 Para instalar el modulo debe posicionarse en la carpeta del proyecto en que quiere instalar el modulo y escribir la siguiente linea de comando en la terminal:
+
+De forma local
 ```
 npm install --save https://github.com/RaquelCC/SCL007-md-links
 ```
+De forma global
+```
+npm install --save https://github.com/RaquelCC/SCL007-md-links -g
+```
+
 
 ### USO COMO MODULO
 - `md-links(path [,options])` **devuelve una promesa** cuyo resolve corresponde a un array con objetos, cada objeto representa un link.
