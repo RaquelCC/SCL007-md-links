@@ -4,6 +4,10 @@
 `md-links` es un modulo que permite extraer los links de un archivo .md y verificar que estos se encuentren funcionando (no esten rotos). Además entrega al usuario información relevante como el archivo donde se encuentra el link analizado y la linea.
 
 ### INSTALACIÓN
+Para instalar el modulo debe posicionarse en la carpeta del proyecto en que quiere instalar el modulo y escribir la siguiente linea de comando en la terminal:
+```
+npm install --save https://github.com/RaquelCC/SCL007-md-links
+```
 
 ### USO COMO MODULO
 - `md-links(path [,options])` **devuelve una promesa** cuyo resolve corresponde a un array con objetos, cada objeto representa un link.
@@ -22,7 +26,7 @@
         
         ['.README.md']   como... ['.README.md', '..']
 
-- `options:` es un objeto que contiene la opción de validación. Por defecto viene con un valor de **false**.
+- `options:` es un objeto que contiene la opción de validación. Por defecto viene con un valor de **false**. Si se configura su valor a true agrega a los objetos link la propiedad de validation.
 
     {
         validate : false
