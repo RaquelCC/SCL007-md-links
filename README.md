@@ -13,12 +13,14 @@
         - link: contiene la url.
         - file: indica el archivo(con ruta absoluta) desde el cual se extrajo el link.
         - line: indica la linea especifica donde está el link dentro del archivo .
+        - mdText: indica el texto que acompaña al link entre [].
+        - (opcional)validation: indica true si el link funciona y false si no.
 
 - `path:` es un array(arreglo) que contiene la ruta o rutas a analizar, acepta rutas tanto absolutas como relativas, archivos y carpetas.
 
     Es decir, el parametro de path puede ser tanto:
         
-        ['.README.md]   como... ['.README.md', '..']
+        ['.README.md']   como... ['.README.md', '..']
 
 - `options:` es un objeto que contiene la opción de validación. Por defecto viene con un valor de **false**.
 
@@ -36,19 +38,22 @@ mdlink( ['.README'] )
 debería mostrarnos por consola algo como esto:
 
 ```
-[ { link: 'https://es.wikipedia.org/wiki/Markdown',
+[ { mdText: '[Markdown]',
+    link: 'https://es.wikipedia.org/wiki/Markdown',
     line: 5,
     file:
      'C:\\Users\\rcana\\Documents\\Laboratoria\\SCL007-md-links\\READMELab.md' },
-  { link: 'https://nodejs.org/',
+  { mdText: '[Node.js]',
+    link: 'https://nodejs.org/',
     line: 16,
     file:
      'C:\\Users\\rcana\\Documents\\Laboratoria\\SCL007-md-links\\READMELab.md' },
-  { link:
+  { mdText: '[md-links]',
+    link:
      'https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg',
     line: 20,
     file:
-     'C:\\Users\\rcana\\Documents\\Laboratoria\\SCL007-md-links\\READMELab.md' } ]
+     'C:\\Users\\rcana\\Documents\\Laboratoria\\SCL007-md-links\\READMELab.md' }]
 ```
 
 si ademas aplicamos la opción validate:
@@ -63,17 +68,20 @@ mdlink( ['.README'] , { validate : true} )
 debería mostrarnos algo como lo siguiente:
 
 ```
-[ { link: 'https://es.wikipedia.org/wiki/Markdown',
+[  { mdText: '[Markdown]',
+    link: 'https://es.wikipedia.org/wiki/Markdown',
     line: 5,
     file:
      'C:\\Users\\rcana\\Documents\\Laboratoria\\SCL007-md-links\\READMELab.md',
     validation: true },
-  { link: 'https://nodejs.org/',
+  { mdText: '[Node.js]',
+    link: 'https://nodejs.org/',
     line: 16,
     file:
      'C:\\Users\\rcana\\Documents\\Laboratoria\\SCL007-md-links\\READMELab.md',
     validation: true },
-  { link:
+  { mdText: '[md-links]',
+    link:
      'https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg',
     line: 20,
     file:
