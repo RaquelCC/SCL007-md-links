@@ -25,7 +25,9 @@ function getArguments(arr) {
 
 
 if (require.main === module) {
-  mdLinks(getArguments(process.argv)[0], getArguments(process.argv)[1])
+  mdLinks(getArguments(process.argv)[0].map(element => {
+    return path.resolve(element)
+  }), getArguments(process.argv)[1])
     .then((data) => {
       console.log(data);
       return data;
