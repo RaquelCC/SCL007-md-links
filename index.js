@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const mdLinks = require('./mdlinks');
+const path = require('path')
 
 module.exports = mdLinks;
 
