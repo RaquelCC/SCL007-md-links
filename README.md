@@ -12,7 +12,7 @@ npm install --save https://github.com/RaquelCC/SCL007-md-links
 ```
 De forma global
 ```
-npm install --save https://github.com/RaquelCC/SCL007-md-links -g
+npm install https://github.com/RaquelCC/SCL007-md-links -g
 ```
 
 
